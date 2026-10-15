@@ -1,0 +1,196 @@
+{
+  "base_url": "https://8cspr7pmca.execute-api.us-east-1.amazonaws.com",
+  "version": "2.0.0",
+  "passed": 47,
+  "checks": [
+    {
+      "path": "/v1/me",
+      "status": 401
+    },
+    {
+      "path": "/v1/demo/users/demo-01/incomes",
+      "status": 401
+    },
+    {
+      "path": "/v1/auth/login",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/incomes",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/expenses",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/calendar",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/notifications",
+      "status": 200
+    },
+    {
+      "path": "/v1/demo/users/demo-02/incomes",
+      "status": 403
+    },
+    {
+      "path": "/v1/me/simulations",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/simulations",
+      "status": 200
+    },
+    {
+      "path": "/v1/auth/logout",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "status": 401
+    },
+    {
+      "path": "/v1/auth/login",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/incomes",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/expenses",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/calendar",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/notifications",
+      "status": 200
+    },
+    {
+      "path": "/v1/demo/users/demo-01/incomes",
+      "status": 403
+    },
+    {
+      "path": "/v1/me/simulations",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/simulations",
+      "status": 200
+    },
+    {
+      "path": "/v1/auth/logout",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "status": 401
+    },
+    {
+      "path": "/v1/auth/login",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/incomes",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/expenses",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/calendar",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/notifications",
+      "status": 200
+    },
+    {
+      "path": "/v1/demo/users/demo-02/incomes",
+      "status": 403
+    },
+    {
+      "path": "/v1/me/simulations",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/simulations",
+      "status": 200
+    },
+    {
+      "path": "/v1/auth/logout",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "status": 401
+    },
+    {
+      "path": "/v1/auth/login",
+      "status": 401
+    },
+    {
+      "path": "/v1/auth/register",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/incomes",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/expenses",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/notifications",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/calendar",
+      "status": 200
+    },
+    {
+      "path": "/v1/me/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/v1/auth/register",
+      "status": 409
+    },
+    {
+      "path": "/v1/auth/logout",
+      "status": 200
+    }
+  ],
+  "scope": "HTTPS y sesiones; Android pendiente de actualizar"
+}

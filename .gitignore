@@ -1,0 +1,10 @@
+__pycache__/
+.pytest_cache/
+.aws-sam/
+.venv/
+.env
+.aws/
+build/
+*.zip
+samconfig.toml
+private/

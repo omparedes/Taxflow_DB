@@ -1,0 +1,1682 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Test Flow - demo academica",
+    "version": "0.1.0-draft",
+    "description": "PROPUESTA NO APROBADA NI DESPLEGADA. Datos sinteticos de tres usuarios; selector sin autenticacion, sin SUNAT, Cognito ni offline. Uso controlado."
+  },
+  "servers": [
+    {
+      "url": "https://api.example.invalid",
+      "description": "Marcador no operativo; URL pendiente de despliegue aprobado."
+    }
+  ],
+  "security": [],
+  "paths": {
+    "/v1/demo/users": {
+      "get": {
+        "operationId": "listDemoUsers",
+        "summary": "listDemoUsers",
+        "description": "Tres perfiles ficticios; selector no es autenticacion.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato propuesto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemoUserList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "x-source": "AuthScreen.kt:34 y selector pedido por usuario",
+        "x-status": "pendiente-aprobacion"
+      }
+    },
+    "/v1/demo/users/{user_id}/dashboard": {
+      "get": {
+        "operationId": "getDemoDashboard",
+        "summary": "getDemoDashboard",
+        "description": "Resumen demo; definicion de impuesto/ahorro/deduccion consumida pendiente y excluida de este primer contrato.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato propuesto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dashboard"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "demo-01",
+                "demo-02",
+                "demo-03"
+              ]
+            },
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "anio",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                2026
+              ]
+            },
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "mes",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "in": "query",
+            "required": true
+          }
+        ],
+        "x-source": "DashboardScreen.kt:36",
+        "x-status": "pendiente-aprobacion"
+      }
+    },
+    "/v1/demo/users/{user_id}/incomes": {
+      "get": {
+        "operationId": "listDemoIncomes",
+        "summary": "listDemoIncomes",
+        "description": "q busca subcadena en cliente o serie-numero; cliente busca subcadena en cliente. Case-insensitive. AND entre filtros; fechas inclusivas, desde<=hasta. Orden fecha DESC,id ASC. Lista completa del dataset acotado; resumen de coincidencias, sin paginacion publica.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato propuesto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncomeList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "demo-01",
+                "demo-02",
+                "demo-03"
+              ]
+            },
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "desde",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "hasta",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "q",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "cliente",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 150
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "estado",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PAGADO",
+                "PENDIENTE",
+                "REVERTIDO"
+              ]
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
+        "x-source": "IngresosScreen.kt:95",
+        "x-status": "pendiente-aprobacion"
+      }
+    },
+    "/v1/demo/users/{user_id}/incomes/{id}": {
+      "get": {
+        "operationId": "getDemoIncome",
+        "summary": "getDemoIncome",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato propuesto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Income"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "demo-01",
+                "demo-02",
+                "demo-03"
+              ]
+            },
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,40}$"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-source": "ReceiptDetailDialog.kt:24",
+        "x-status": "pendiente-aprobacion"
+      }
+    },
+    "/v1/demo/users/{user_id}/expenses": {
+      "get": {
+        "operationId": "listDemoExpenses",
+        "summary": "listDemoExpenses",
+        "description": "AND entre filtros; fechas inclusivas, desde<=hasta. Orden fecha DESC,id ASC. Lista completa; resumen de coincidencias.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato propuesto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExpenseList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "demo-01",
+                "demo-02",
+                "demo-03"
+              ]
+            },
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "desde",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "hasta",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "categoria",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "restaurantes",
+                "servicios",
+                "alojamiento",
+                "essalud"
+              ]
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "estado",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "MANUAL",
+                "OBSERVADO"
+              ]
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
+        "x-source": "GastosScreen.kt:120",
+        "x-status": "pendiente-aprobacion"
+      }
+    },
+    "/v1/demo/users/{user_id}/expenses/{id}": {
+      "get": {
+        "operationId": "getDemoExpense",
+        "summary": "getDemoExpense",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato propuesto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Expense"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "demo-01",
+                "demo-02",
+                "demo-03"
+              ]
+            },
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,40}$"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-source": "ReceiptDetailDialog.kt:24",
+        "x-status": "pendiente-aprobacion"
+      }
+    },
+    "/v1/demo/users/{user_id}/calendar": {
+      "get": {
+        "operationId": "getDemoCalendar",
+        "summary": "getDemoCalendar",
+        "description": "Fechas y suspension ficticias; no cronograma oficial. Orden fecha ASC,id ASC.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato propuesto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarItemList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "demo-01",
+                "demo-02",
+                "demo-03"
+              ]
+            },
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "anio",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                2026
+              ]
+            },
+            "in": "query",
+            "required": true
+          }
+        ],
+        "x-source": "SunatCalendarScreen.kt:41",
+        "x-status": "pendiente-aprobacion"
+      }
+    },
+    "/v1/demo/users/{user_id}/notifications": {
+      "get": {
+        "operationId": "getDemoNotifications",
+        "summary": "getDemoNotifications",
+        "description": "Avisos precargados; sin push, programacion ni marcado de lectura. Orden created_at DESC,id ASC.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato propuesto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "demo-01",
+                "demo-02",
+                "demo-03"
+              ]
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-source": "ProfileAndNotifDialogs.kt:152",
+        "x-status": "pendiente-aprobacion"
+      }
+    },
+    "/v1/demo/users/{user_id}/simulations": {
+      "post": {
+        "operationId": "simulateDemoReceipt",
+        "summary": "simulateDemoReceipt",
+        "description": "No guarda ni emite documentos. Reglas didacticas por aprobar: ingreso aplica 8% si switch true y bruto>150000 centimos; gastos por categoria demo. Redondeo HALF_UP a centimo; sin suspension fiscal real.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato propuesto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulationResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "demo-01",
+                "demo-02",
+                "demo-03"
+              ]
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-source": "SimulatorBottomSheet.kt:23",
+        "x-status": "pendiente-aprobacion",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationRequest"
+              },
+              "example": {
+                "tipo": "INGRESO",
+                "monto_centimos": 350000,
+                "aplicar_retencion": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DemoUser": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "demo-01",
+              "demo-02",
+              "demo-03"
+            ]
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "profesion": {
+            "type": "string"
+          },
+          "ultimo_digito_ruc": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9
+          },
+          "es_ficticio": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "nombre",
+          "profesion",
+          "ultimo_digito_ruc",
+          "es_ficticio"
+        ]
+      },
+      "DemoUserList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DemoUser"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total"
+        ]
+      },
+      "Income": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "cliente": {
+            "type": "string"
+          },
+          "serie": {
+            "type": "string"
+          },
+          "numero": {
+            "type": "string"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date"
+          },
+          "monto_bruto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "retencion_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "monto_neto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "estado": {
+            "type": "string",
+            "enum": [
+              "PAGADO",
+              "PENDIENTE",
+              "REVERTIDO"
+            ]
+          },
+          "origen": {
+            "type": "string",
+            "enum": [
+              "DEMO"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "cliente",
+          "serie",
+          "numero",
+          "fecha",
+          "monto_bruto_centimos",
+          "retencion_centimos",
+          "monto_neto_centimos",
+          "estado",
+          "origen"
+        ],
+        "example": {
+          "id": "income-01",
+          "cliente": "Cliente ficticio Alfa",
+          "serie": "D001",
+          "numero": "001",
+          "fecha": "2026-09-14",
+          "monto_bruto_centimos": 450000,
+          "retencion_centimos": 36000,
+          "monto_neto_centimos": 414000,
+          "estado": "PAGADO",
+          "origen": "DEMO"
+        }
+      },
+      "IncomeList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Income"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "resumen": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "bruto_centimos": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "maximum": 100000000,
+                "description": "Centimos PEN; Android Long."
+              },
+              "retencion_centimos": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "maximum": 100000000,
+                "description": "Centimos PEN; Android Long."
+              },
+              "neto_centimos": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "maximum": 100000000,
+                "description": "Centimos PEN; Android Long."
+              }
+            },
+            "required": [
+              "bruto_centimos",
+              "retencion_centimos",
+              "neto_centimos"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "resumen"
+        ]
+      },
+      "Expense": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "proveedor": {
+            "type": "string"
+          },
+          "serie": {
+            "type": "string"
+          },
+          "numero": {
+            "type": "string"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date"
+          },
+          "categoria": {
+            "type": "string",
+            "enum": [
+              "restaurantes",
+              "servicios",
+              "alojamiento",
+              "essalud"
+            ]
+          },
+          "monto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "porcentaje_deducible_pb": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "deducible_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "estado": {
+            "type": "string",
+            "enum": [
+              "MANUAL",
+              "OBSERVADO"
+            ]
+          },
+          "origen": {
+            "type": "string",
+            "enum": [
+              "DEMO"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "proveedor",
+          "serie",
+          "numero",
+          "fecha",
+          "categoria",
+          "monto_centimos",
+          "porcentaje_deducible_pb",
+          "deducible_centimos",
+          "estado",
+          "origen"
+        ]
+      },
+      "ExpenseList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Expense"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "resumen": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "total_centimos": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "maximum": 100000000,
+                "description": "Centimos PEN; Android Long."
+              },
+              "deducible_centimos": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "maximum": 100000000,
+                "description": "Centimos PEN; Android Long."
+              }
+            },
+            "required": [
+              "total_centimos",
+              "deducible_centimos"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "resumen"
+        ]
+      },
+      "CalendarItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date"
+          },
+          "formulario": {
+            "type": "string"
+          },
+          "estado": {
+            "type": "string",
+            "enum": [
+              "PENDIENTE",
+              "PRESENTADO",
+              "ACTIVO"
+            ]
+          },
+          "detalle": {
+            "type": "string"
+          },
+          "origen": {
+            "type": "string",
+            "enum": [
+              "DEMO"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "titulo",
+          "fecha",
+          "formulario",
+          "estado",
+          "detalle",
+          "origen"
+        ]
+      },
+      "CalendarItemList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CalendarItem"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total"
+        ]
+      },
+      "Notification": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "mensaje": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "es_urgente": {
+            "type": "boolean"
+          },
+          "origen": {
+            "type": "string",
+            "enum": [
+              "DEMO"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "titulo",
+          "mensaje",
+          "created_at",
+          "es_urgente",
+          "origen"
+        ]
+      },
+      "NotificationList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total"
+        ]
+      },
+      "Dashboard": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "usuario_id": {
+            "type": "string",
+            "enum": [
+              "demo-01",
+              "demo-02",
+              "demo-03"
+            ]
+          },
+          "anio": {
+            "type": "integer",
+            "enum": [
+              2026
+            ]
+          },
+          "mes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          "ingresos_mes_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "ingresos_anio_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "retenciones_anio_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "gastos_anio_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "deducible_anio_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "limite_7_uit_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "limite_3_uit_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "reglas_version": {
+            "type": "string"
+          },
+          "actividad_reciente": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "tipo": {
+                  "type": "string",
+                  "enum": [
+                    "INGRESO",
+                    "GASTO"
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "fecha": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "titulo": {
+                  "type": "string"
+                },
+                "monto_centimos": {
+                  "type": "integer",
+                  "format": "int64",
+                  "minimum": 0,
+                  "maximum": 100000000,
+                  "description": "Centimos PEN; Android Long."
+                }
+              },
+              "required": [
+                "tipo",
+                "id",
+                "fecha",
+                "titulo",
+                "monto_centimos"
+              ]
+            }
+          }
+        },
+        "required": [
+          "usuario_id",
+          "anio",
+          "mes",
+          "ingresos_mes_centimos",
+          "ingresos_anio_centimos",
+          "retenciones_anio_centimos",
+          "gastos_anio_centimos",
+          "deducible_anio_centimos",
+          "limite_7_uit_centimos",
+          "limite_3_uit_centimos",
+          "reglas_version",
+          "actividad_reciente"
+        ]
+      },
+      "IncomeSimulation": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "INGRESO"
+            ]
+          },
+          "monto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "aplicar_retencion": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "tipo",
+          "monto_centimos",
+          "aplicar_retencion"
+        ]
+      },
+      "ExpenseSimulation": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "GASTO"
+            ]
+          },
+          "monto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "categoria": {
+            "type": "string",
+            "enum": [
+              "restaurantes",
+              "servicios",
+              "alojamiento",
+              "essalud"
+            ]
+          }
+        },
+        "required": [
+          "tipo",
+          "monto_centimos",
+          "categoria"
+        ]
+      },
+      "SimulationRequest": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/IncomeSimulation"
+          },
+          {
+            "$ref": "#/components/schemas/ExpenseSimulation"
+          }
+        ]
+      },
+      "SimulationResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "INGRESO",
+              "GASTO"
+            ]
+          },
+          "monto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "retencion_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "neto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "deducible_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "reglas_version": {
+            "type": "string"
+          },
+          "persistido": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          }
+        },
+        "required": [
+          "tipo",
+          "monto_centimos",
+          "retencion_centimos",
+          "neto_centimos",
+          "deducible_centimos",
+          "reglas_version",
+          "persistido"
+        ],
+        "example": {
+          "tipo": "INGRESO",
+          "monto_centimos": 350000,
+          "retencion_centimos": 28000,
+          "neto_centimos": 322000,
+          "deducible_centimos": 0,
+          "reglas_version": "demo-v1",
+          "persistido": false
+        }
+      },
+      "Error": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "request_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "request_id"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "example": {
+          "error": {
+            "code": "NOT_FOUND",
+            "message": "Registro demo no encontrado",
+            "request_id": "request-demo"
+          }
+        }
+      }
+    }
+  },
+  "x-base-url-deployed": null,
+  "x-authentication-mode": "selector-demo-no-autenticacion"
+}

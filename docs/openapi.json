@@ -1,0 +1,2215 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Test Flow API",
+    "version": "2.0.0",
+    "description": "Registro, inicio y cierre de sesion. Datos personales de prueba precargados y cuentas nuevas vacias. Sin integracion SUNAT."
+  },
+  "servers": [
+    {
+      "url": "https://8cspr7pmca.execute-api.us-east-1.amazonaws.com",
+      "description": "AWS Academy us-east-1: entorno de demostracion ficticia."
+    }
+  ],
+  "security": [
+    {
+      "SessionBearer": []
+    }
+  ],
+  "paths": {
+    "/v1/me/dashboard": {
+      "get": {
+        "operationId": "getDashboard",
+        "summary": "getDashboard",
+        "description": "Resumen demo; definicion de impuesto/ahorro/deduccion consumida pendiente y excluida de este primer contrato.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato MVP aprobado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dashboard"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "anio",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                2026
+              ]
+            },
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "mes",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "in": "query",
+            "required": true
+          }
+        ],
+        "x-source": "DashboardScreen.kt:36",
+        "x-status": "desplegado-verificado"
+      }
+    },
+    "/v1/me/incomes": {
+      "get": {
+        "operationId": "listIncomes",
+        "summary": "listIncomes",
+        "description": "q busca subcadena en cliente o serie-numero; cliente busca subcadena en cliente. Case-insensitive. AND entre filtros; fechas inclusivas, desde<=hasta. Orden fecha DESC,id ASC. Lista completa del dataset acotado; resumen de coincidencias, sin paginacion publica.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato MVP aprobado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncomeList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "desde",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "hasta",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "q",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "cliente",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 150
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "estado",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PAGADO",
+                "PENDIENTE",
+                "REVERTIDO"
+              ]
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
+        "x-source": "IngresosScreen.kt:95",
+        "x-status": "desplegado-verificado"
+      }
+    },
+    "/v1/me/incomes/{id}": {
+      "get": {
+        "operationId": "getIncome",
+        "summary": "getIncome",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato MVP aprobado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Income"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,40}$"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-source": "ReceiptDetailDialog.kt:24",
+        "x-status": "desplegado-verificado"
+      }
+    },
+    "/v1/me/expenses": {
+      "get": {
+        "operationId": "listExpenses",
+        "summary": "listExpenses",
+        "description": "AND entre filtros; fechas inclusivas, desde<=hasta. Orden fecha DESC,id ASC. Lista completa; resumen de coincidencias.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato MVP aprobado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExpenseList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "desde",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "hasta",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "categoria",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "restaurantes",
+                "servicios",
+                "alojamiento",
+                "essalud"
+              ]
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "estado",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "MANUAL",
+                "OBSERVADO"
+              ]
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
+        "x-source": "GastosScreen.kt:120",
+        "x-status": "desplegado-verificado"
+      }
+    },
+    "/v1/me/expenses/{id}": {
+      "get": {
+        "operationId": "getExpense",
+        "summary": "getExpense",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato MVP aprobado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Expense"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,40}$"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-source": "ReceiptDetailDialog.kt:24",
+        "x-status": "desplegado-verificado"
+      }
+    },
+    "/v1/me/calendar": {
+      "get": {
+        "operationId": "getCalendar",
+        "summary": "getCalendar",
+        "description": "Fechas y suspension ficticias; no cronograma oficial. Orden fecha ASC,id ASC.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato MVP aprobado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarItemList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "anio",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                2026
+              ]
+            },
+            "in": "query",
+            "required": true
+          }
+        ],
+        "x-source": "SunatCalendarScreen.kt:41",
+        "x-status": "desplegado-verificado"
+      }
+    },
+    "/v1/me/notifications": {
+      "get": {
+        "operationId": "getNotifications",
+        "summary": "getNotifications",
+        "description": "Avisos precargados; sin push, programacion ni marcado de lectura. Orden created_at DESC,id ASC.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato MVP aprobado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "x-source": "ProfileAndNotifDialogs.kt:152",
+        "x-status": "desplegado-verificado"
+      }
+    },
+    "/v1/me/simulations": {
+      "post": {
+        "operationId": "simulateReceipt",
+        "summary": "simulateReceipt",
+        "description": "No guarda ni emite documentos. Reglas didacticas aprobadas demo-v1: ingreso aplica 8% si switch true y bruto>150000 centimos; gastos por categoria demo. Redondeo HALF_UP a centimo; sin suspension fiscal real.",
+        "responses": {
+          "200": {
+            "description": "Datos ficticios; contrato MVP aprobado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulationResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "x-source": "SimulatorBottomSheet.kt:23",
+        "x-status": "desplegado-verificado",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationRequest"
+              },
+              "example": {
+                "tipo": "INGRESO",
+                "monto_centimos": 350000,
+                "aplicar_retencion": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/me": {
+      "get": {
+        "operationId": "getProfile",
+        "summary": "Consultar mi perfil",
+        "responses": {
+          "200": {
+            "description": "Resultado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-status": "desplegado-verificado"
+      }
+    },
+    "/v1/auth/register": {
+      "post": {
+        "operationId": "register",
+        "summary": "register",
+        "responses": {
+          "200": {
+            "description": "Resultado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Registration"
+              }
+            }
+          }
+        },
+        "x-status": "desplegado-verificado"
+      }
+    },
+    "/v1/auth/login": {
+      "post": {
+        "operationId": "login",
+        "summary": "login",
+        "responses": {
+          "200": {
+            "description": "Resultado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credentials"
+              }
+            }
+          }
+        },
+        "x-status": "desplegado-verificado"
+      }
+    },
+    "/v1/auth/logout": {
+      "post": {
+        "operationId": "logout",
+        "summary": "logout",
+        "responses": {
+          "200": {
+            "description": "Resultado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Logout"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesion o credenciales invalidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Cuenta ajena",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Correo ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de solicitudes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Servicio no disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-status": "desplegado-verificado",
+        "requestBody": {
+          "description": "Objeto JSON vacio requerido por el backend.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmptyObject"
+              },
+              "example": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Income": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "cliente": {
+            "type": "string"
+          },
+          "serie": {
+            "type": "string"
+          },
+          "numero": {
+            "type": "string"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date"
+          },
+          "monto_bruto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "retencion_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "monto_neto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "estado": {
+            "type": "string",
+            "enum": [
+              "PAGADO",
+              "PENDIENTE",
+              "REVERTIDO"
+            ]
+          },
+          "origen": {
+            "type": "string",
+            "enum": [
+              "MANUAL"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "cliente",
+          "serie",
+          "numero",
+          "fecha",
+          "monto_bruto_centimos",
+          "retencion_centimos",
+          "monto_neto_centimos",
+          "estado",
+          "origen"
+        ],
+        "example": {
+          "id": "income-01",
+          "cliente": "Cliente ficticio Alfa",
+          "serie": "D001",
+          "numero": "001",
+          "fecha": "2026-09-14",
+          "monto_bruto_centimos": 450000,
+          "retencion_centimos": 36000,
+          "monto_neto_centimos": 414000,
+          "estado": "PAGADO",
+          "origen": "MANUAL"
+        }
+      },
+      "IncomeList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Income"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "resumen": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "bruto_centimos": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "maximum": 100000000,
+                "description": "Centimos PEN; Android Long."
+              },
+              "retencion_centimos": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "maximum": 100000000,
+                "description": "Centimos PEN; Android Long."
+              },
+              "neto_centimos": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "maximum": 100000000,
+                "description": "Centimos PEN; Android Long."
+              }
+            },
+            "required": [
+              "bruto_centimos",
+              "retencion_centimos",
+              "neto_centimos"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "resumen"
+        ]
+      },
+      "Expense": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "proveedor": {
+            "type": "string"
+          },
+          "serie": {
+            "type": "string"
+          },
+          "numero": {
+            "type": "string"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date"
+          },
+          "categoria": {
+            "type": "string",
+            "enum": [
+              "restaurantes",
+              "servicios",
+              "alojamiento",
+              "essalud"
+            ]
+          },
+          "monto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "porcentaje_deducible_pb": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "deducible_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "estado": {
+            "type": "string",
+            "enum": [
+              "MANUAL",
+              "OBSERVADO"
+            ]
+          },
+          "origen": {
+            "type": "string",
+            "enum": [
+              "MANUAL"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "proveedor",
+          "serie",
+          "numero",
+          "fecha",
+          "categoria",
+          "monto_centimos",
+          "porcentaje_deducible_pb",
+          "deducible_centimos",
+          "estado",
+          "origen"
+        ]
+      },
+      "ExpenseList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Expense"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "resumen": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "total_centimos": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "maximum": 100000000,
+                "description": "Centimos PEN; Android Long."
+              },
+              "deducible_centimos": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "maximum": 100000000,
+                "description": "Centimos PEN; Android Long."
+              }
+            },
+            "required": [
+              "total_centimos",
+              "deducible_centimos"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "resumen"
+        ]
+      },
+      "CalendarItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date"
+          },
+          "formulario": {
+            "type": "string"
+          },
+          "estado": {
+            "type": "string",
+            "enum": [
+              "PENDIENTE",
+              "PRESENTADO",
+              "ACTIVO"
+            ]
+          },
+          "detalle": {
+            "type": "string"
+          },
+          "origen": {
+            "type": "string",
+            "enum": [
+              "MANUAL"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "titulo",
+          "fecha",
+          "formulario",
+          "estado",
+          "detalle",
+          "origen"
+        ]
+      },
+      "CalendarItemList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CalendarItem"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total"
+        ]
+      },
+      "Notification": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "mensaje": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "es_urgente": {
+            "type": "boolean"
+          },
+          "origen": {
+            "type": "string",
+            "enum": [
+              "MANUAL"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "titulo",
+          "mensaje",
+          "created_at",
+          "es_urgente",
+          "origen"
+        ]
+      },
+      "NotificationList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total"
+        ]
+      },
+      "Dashboard": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "usuario_id": {
+            "type": "string",
+            "pattern": "^(demo-0[123]|user-[a-f0-9]{32})$"
+          },
+          "anio": {
+            "type": "integer",
+            "enum": [
+              2026
+            ]
+          },
+          "mes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          "ingresos_mes_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "ingresos_anio_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "retenciones_anio_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "gastos_anio_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "deducible_anio_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "limite_7_uit_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "limite_3_uit_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "reglas_version": {
+            "type": "string"
+          },
+          "actividad_reciente": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "tipo": {
+                  "type": "string",
+                  "enum": [
+                    "INGRESO",
+                    "GASTO"
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "fecha": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "titulo": {
+                  "type": "string"
+                },
+                "monto_centimos": {
+                  "type": "integer",
+                  "format": "int64",
+                  "minimum": 0,
+                  "maximum": 100000000,
+                  "description": "Centimos PEN; Android Long."
+                }
+              },
+              "required": [
+                "tipo",
+                "id",
+                "fecha",
+                "titulo",
+                "monto_centimos"
+              ]
+            }
+          }
+        },
+        "required": [
+          "usuario_id",
+          "anio",
+          "mes",
+          "ingresos_mes_centimos",
+          "ingresos_anio_centimos",
+          "retenciones_anio_centimos",
+          "gastos_anio_centimos",
+          "deducible_anio_centimos",
+          "limite_7_uit_centimos",
+          "limite_3_uit_centimos",
+          "reglas_version",
+          "actividad_reciente"
+        ]
+      },
+      "IncomeSimulation": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "INGRESO"
+            ]
+          },
+          "monto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "aplicar_retencion": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "tipo",
+          "monto_centimos",
+          "aplicar_retencion"
+        ]
+      },
+      "ExpenseSimulation": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "GASTO"
+            ]
+          },
+          "monto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "categoria": {
+            "type": "string",
+            "enum": [
+              "restaurantes",
+              "servicios",
+              "alojamiento",
+              "essalud"
+            ]
+          }
+        },
+        "required": [
+          "tipo",
+          "monto_centimos",
+          "categoria"
+        ]
+      },
+      "SimulationRequest": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/IncomeSimulation"
+          },
+          {
+            "$ref": "#/components/schemas/ExpenseSimulation"
+          }
+        ]
+      },
+      "SimulationResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "INGRESO",
+              "GASTO"
+            ]
+          },
+          "monto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "retencion_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "neto_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "deducible_centimos": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100000000,
+            "description": "Centimos PEN; Android Long."
+          },
+          "reglas_version": {
+            "type": "string"
+          },
+          "persistido": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          }
+        },
+        "required": [
+          "tipo",
+          "monto_centimos",
+          "retencion_centimos",
+          "neto_centimos",
+          "deducible_centimos",
+          "reglas_version",
+          "persistido"
+        ],
+        "example": {
+          "tipo": "INGRESO",
+          "monto_centimos": 350000,
+          "retencion_centimos": 28000,
+          "neto_centimos": 322000,
+          "deducible_centimos": 0,
+          "reglas_version": "demo-v1",
+          "persistido": false
+        }
+      },
+      "Error": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "request_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "request_id"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "example": {
+          "error": {
+            "code": "NOT_FOUND",
+            "message": "Registro demo no encontrado",
+            "request_id": "request-demo"
+          }
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(demo-0[123]|user-[a-f0-9]{32})$"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "profesion": {
+            "type": "string"
+          },
+          "ultimo_digito_ruc": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9,
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "required": [
+          "id",
+          "nombre",
+          "profesion",
+          "ultimo_digito_ruc",
+          "email"
+        ]
+      },
+      "Credentials": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 100
+          },
+          "password": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 128,
+            "writeOnly": true
+          }
+        }
+      },
+      "Registration": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "email",
+          "password",
+          "nombre"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 100
+          },
+          "password": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 128,
+            "writeOnly": true
+          },
+          "nombre": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 150
+          }
+        }
+      },
+      "Session": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "access_token",
+          "token_type",
+          "expires_in",
+          "user"
+        ],
+        "properties": {
+          "access_token": {
+            "type": "string"
+          },
+          "token_type": {
+            "type": "string",
+            "enum": [
+              "Bearer"
+            ]
+          },
+          "expires_in": {
+            "type": "integer",
+            "enum": [
+              7200
+            ]
+          },
+          "user": {
+            "$ref": "#/components/schemas/Profile"
+          }
+        }
+      },
+      "Logout": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          }
+        }
+      },
+      "EmptyObject": {
+        "type": "object",
+        "description": "Objeto JSON vacio para operaciones POST que no requieren parametros.",
+        "additionalProperties": false,
+        "example": {}
+      }
+    },
+    "securitySchemes": {
+      "SessionBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Token opaco obtenido en register/login; vence en dos horas, revocable con logout."
+      }
+    }
+  },
+  "x-base-url-deployed": "https://8cspr7pmca.execute-api.us-east-1.amazonaws.com",
+  "x-authentication-mode": "password-opaque-session"
+}

@@ -1,0 +1,22 @@
+{
+  "account": "325875101955",
+  "region": "us-east-1",
+  "profile": "test-flow-academy",
+  "stack": "test-flow-dev-demo",
+  "stack_status": "UPDATE_COMPLETE",
+  "table": "test-flow-dev-demo",
+  "function": "test-flow-dev-demo",
+  "api_id": "8cspr7pmca",
+  "base_url": "https://8cspr7pmca.execute-api.us-east-1.amazonaws.com",
+  "execution_role": "arn:aws:iam::325875101955:role/LabRole",
+  "artifact_bucket": "test-flow-artifacts-325875101955-us-east-1",
+  "artifact_key": "0ac442f3680b545fd43d8ad97e43cb77",
+  "seed_status": "nombres/movimientos actualizados y tres cuentas con hashes",
+  "https_validation_status": "correcto",
+  "seed_items": 112,
+  "seed_receipts": 90,
+  "https_checks_passed": 47,
+  "android_integration_status": "Integracion v1 realizada por usuario; adaptacion de login v2 pendiente",
+  "api_version": "2.0.0",
+  "authentication": "PBKDF2 + sesiones opacas"
+}
